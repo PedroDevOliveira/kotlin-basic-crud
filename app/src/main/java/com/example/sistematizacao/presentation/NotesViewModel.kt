@@ -45,11 +45,20 @@ class NotesViewModel(
                 }
             }
             is NotesEvent.SaveNote -> {
-                val note = Note(
-                    title = state.value.title.value,
-                    description = state.value.description.value,
-                    dateAdded = System.currentTimeMillis()
-                )
+                val note = if (state.value.id != null) {
+                    Note(
+                        id = state.value.id!!,
+                        title = state.value.title.value,
+                        description = state.value.description.value,
+                        dateAdded = System.currentTimeMillis()
+                    )
+                } else {
+                    Note(
+                        title = state.value.title.value,
+                        description = state.value.description.value,
+                        dateAdded = System.currentTimeMillis()
+                    )
+                }
 
                 viewModelScope.launch {
                     dao.upsertNote(note)
@@ -58,7 +67,8 @@ class NotesViewModel(
                 _state.update {
                     it.copy(
                         title = mutableStateOf(""),
-                        description = mutableStateOf("")
+                        description = mutableStateOf(""),
+                        id = null
                     )
                 }
 

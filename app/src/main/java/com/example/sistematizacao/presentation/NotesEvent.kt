@@ -10,6 +10,7 @@ sealed interface NotesEvent {
 
     data class SaveNote(
         val title: String,
-        val description: String
+        val description: String,
+        val id: Int?
     ): NotesEvent
 }

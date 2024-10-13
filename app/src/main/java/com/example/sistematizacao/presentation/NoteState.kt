@@ -7,5 +7,6 @@ import com.example.sistematizacao.data.Note
 data class NoteState (
     val notes: List<Note> = emptyList(),
     val title: MutableState<String> = mutableStateOf(""),
-    val description: MutableState<String> = mutableStateOf("")
+    val description: MutableState<String> = mutableStateOf(""),
+    var id: Int? = null
 )
